@@ -56,6 +56,10 @@ import {
   EntityOwnershipCard,
   EntityUserProfileCard,
 } from '@backstage/plugin-org';
+import {
+  EntityArgoCDOverviewCard,
+  isArgocdAvailable
+} from '@roadiehq/backstage-plugin-argo-cd';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
 import { EntityTodoContent } from '@backstage/plugin-todo';
 import { EmptyState } from '@backstage/core-components';
@@ -196,6 +200,13 @@ const serviceEntityPage = (
         <Grid item xs={12} md={6}>
           <EntityConsumedApisCard />
         </Grid>
+        <EntitySwitch>
+          <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
+            <Grid item sm={4}>
+              <EntityArgoCDOverviewCard />
+            </Grid>
+          </EntitySwitch.Case>
+        </EntitySwitch>        
       </Grid>
     </EntityLayout.Route>
 
